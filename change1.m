@@ -1,0 +1,24 @@
+clc;
+clear;
+datasets_name={'PIE_32x32'};
+for ds=1:length(datasets_name)
+    dataset=datasets_name{ds};  %数据集
+    dataset
+    file=strcat('D:\MATLAB\bin\duan\MDRST\datasets\',dataset,'.mat');
+    load(file);
+    C=unique(Y);
+    l=length(C);
+    
+    for i=1:1:l
+        idxC=find(Y==C(i));
+        ll=length(idxC);
+        imgX=X(idxC,:);%取出每类数据
+        for j=1:1:ll
+            iimgX=imgX(j,:);
+            im=sqrt(size(X,2));
+            newImg = reshape(iimgX,im,[]);
+            newImg = uint8(newImg);
+            imwrite(newImg,strcat('E:\ZCH\zch_algorithm\椒盐噪声\original_imag\PIE32x32\',string(i),'-',string(j),'.png'));
+        end
+    end
+end
